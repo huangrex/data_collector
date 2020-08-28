@@ -5,16 +5,34 @@ import requests
 import pandas as pd
 import logging
 import csv
+import argparse
 
 logging.basicConfig(level=logging.CRITICAL)
 
+parser = argparse.ArgumentParser(description='fill arguement')
 
+parser.add_argument('--novel_name', type=str, required=True,
+                    help='input the novel name')
+
+
+parser.add_argument('--page', type=int, required=False, default=1000,
+                    help='input the novel name')
+
+parser.add_argument('--experiment', type=str, required=True,
+                    help = 'input the execution experiment name')
+
+args = parser.parse_args()
+
+logging.debug("novel name", args.novel_name)
+logging.debug("novel page", args.page)
+
+count_page = args.page
 
 browser = webdriver.Chrome()
 url="https://www.ptwxz.com/"
 browser.get(url)
 search_input = browser.find_element_by_id("searchkey")
-search_input.send_keys("逆天邪神")
+search_input.send_keys(args.novel_name)
 browser.find_element_by_name("Submit").click()
 
 
@@ -40,7 +58,7 @@ for i in soup.find_all('li'):
         #print(j)
         #print(j.get('href'))
         
-        if(count > 100):
+        if(count > count_page):
             break
         
         newurl = url+'/'+j.get('href')
@@ -81,6 +99,6 @@ for i in soup.find_all('li'):
         count += 1
 
 
-data_csv = data.to_csv("novel.csv")
+data_csv = data.to_csv(args.experiment+'.csv')
 print(data_csv)
 
