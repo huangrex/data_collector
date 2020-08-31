@@ -21,6 +21,9 @@ parser.add_argument('--page', type=int, required=False, default=1000,
 parser.add_argument('--experiment', type=str, required=True,
                     help = 'input the execution experiment name')
 
+parser.add_argument('--num_data', type=int, required=False, default=1
+                    help= 'input the number to sum the data')
+
 args = parser.parse_args()
 
 logging.debug("novel name", args.novel_name)
@@ -101,4 +104,6 @@ for i in soup.find_all('li'):
 
 data_csv = data.to_csv(args.experiment+'.csv')
 print(data_csv)
+
+
 
