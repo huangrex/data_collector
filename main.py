@@ -21,8 +21,6 @@ parser.add_argument('--page', type=int, required=False, default=1000,
 parser.add_argument('--experiment', type=str, required=True,
                     help = 'input the execution experiment name')
 
-parser.add_argument('--num_data', type=int, required=False, default=1
-                    help= 'input the number to sum the data')
 
 args = parser.parse_args()
 
@@ -58,14 +56,11 @@ data = pd.DataFrame()
 count = 0
 for i in soup.find_all('li'):
     for j in i.find_all('a', href=True):
-        #print(j)
-        #print(j.get('href'))
         
         if(count > count_page):
             break
         
         newurl = url+'/'+j.get('href')
-        #print(newurl)
         response = requests.get(newurl, verify=False, headers={
             "User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36"
         })
@@ -95,10 +90,8 @@ for i in soup.find_all('li'):
             "title": title.string,
             "desc" : text
         }, index=[str(count)])
-        #print(series)
         data = data.append(series)
 
-        #print("count", count)
         count += 1
 
 

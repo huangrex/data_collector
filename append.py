@@ -16,7 +16,7 @@ sum = open("sum.csv", 'w')
 writer = csv.writer(sum)
 jump = 0
 for i in range(args.num_data):
-    print(str(i+1)+".csv")
+    #print(str(i+1)+".csv")
 
     old_data = open(str(i+1)+".csv", 'r')
     rows = csv.reader(old_data)
@@ -26,7 +26,7 @@ for i in range(args.num_data):
             jump+=1
             continue
         jump+=1
-        print(j)
+        #print(j)
         writer.writerow(j)
     
     jump = 0
