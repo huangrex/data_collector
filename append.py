@@ -15,6 +15,8 @@ args = parser.parse_args()
 sum = open("sum.csv", 'w')
 writer = csv.writer(sum)
 jump = 0
+
+writer.writerow(["index","title", "desc"])
 for i in range(args.num_data):
     #print(str(i+1)+".csv")
 
